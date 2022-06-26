@@ -19,33 +19,40 @@ class MyApp extends StatelessWidget {
         colorSchemeSeed: Colors.orange,
         useMaterial3: true,
       ),
-      home: SafeArea(
-        child: Scaffold(
-          appBar: AppBar(
-            title: const Text('Material3'),
-            leading: IconButton(
-                onPressed: () => showAboutDialog(context: context),
-                icon: const Icon(Icons.crisis_alert_outlined)),
-          ),
-          body: SingleChildScrollView(
-              child: SizedBox(
-            width: double.infinity,
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: const [
-                SizedBox(
-                  width: 250,
-                  height: 200,
-                  child: Card(
-                    elevation: 2,
-                    color: Color.fromARGB(255, 159, 175, 183),
-                  ),
-                )
-              ],
-            ),
-          )),
-        ),
+      home: const HomePage(),
+    );
+  }
+}
+
+class HomePage extends StatelessWidget {
+  const HomePage({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('Material3'),
+        leading: IconButton(
+            onPressed: () => _showAlertDialog(context),
+            icon: const Icon(Icons.crisis_alert_outlined)),
       ),
+      body: SingleChildScrollView(
+          child: SizedBox(
+        width: double.infinity,
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: const [
+            SizedBox(
+              width: 250,
+              height: 200,
+              child: Card(
+                elevation: 2,
+                color: Color.fromARGB(255, 159, 175, 183),
+              ),
+            )
+          ],
+        ),
+      )),
     );
   }
 
