@@ -1,56 +1,77 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-void main() {
-  runApp(const MyApp());
-}
+final counterProvider = StateProvider((ref) => 0);
+final bottomNavigationIndexProvider = StateProvider((ref) => 0);
+final navigationRailIndexProvider = StateProvider((ref) => 0);
+final titleProvider = Provider((ref) => "Flutter Demo");
+
+void main() => runApp(const MyApp());
 
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
-
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
+      debugShowCheckedModeBanner: false,
+      title: 'Material3',
       theme: ThemeData(
+        colorSchemeSeed: Colors.orange,
         useMaterial3: true,
-        colorSchemeSeed: Colors.blueGrey,
       ),
-      home: const MyHomePage(title: 'Flutter Demo Home Page'),
-    );
-  }
-}
-
-class MyHomePage extends StatefulWidget {
-  const MyHomePage({Key? key, required this.title}) : super(key: key);
-
-  final String title;
-
-  @override
-  State<MyHomePage> createState() => _MyHomePageState();
-}
-
-class _MyHomePageState extends State<MyHomePage> {
-  @override
-  Widget build(BuildContext context) {
-    // This method is rerun every time setState is called, for instance as done
-    // by the _incrementCounter method above.
-    //
-    // The Flutter framework has been optimized to make rerunning build methods
-    // fast, so that you can just rebuild anything that needs updating rather
-    // than having to individually change instances of widgets.
-    return Scaffold(
-      appBar: AppBar(
-        // Here we take the value from the MyHomePage object that was created by
-        // the App.build method, and use it to set our appbar title.
-        title: Text(widget.title),
-      ),
-      body: Center(
-        child: ElevatedButton(
-          child: Text('Material3'),
-          onPressed: () {},
+      home: SafeArea(
+        child: Scaffold(
+          appBar: AppBar(
+            title: const Text('Material3'),
+            leading: IconButton(
+                onPressed: () => showAboutDialog(context: context),
+                icon: const Icon(Icons.crisis_alert_outlined)),
+          ),
+          body: SingleChildScrollView(
+              child: SizedBox(
+            width: double.infinity,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: const [
+                SizedBox(
+                  width: 250,
+                  height: 200,
+                  child: Card(
+                    elevation: 2,
+                    color: Color.fromARGB(255, 159, 175, 183),
+                  ),
+                )
+              ],
+            ),
+          )),
         ),
       ),
+    );
+  }
+
+  Future<void> _showAlertDialog(BuildContext context) async {
+    return showDialog<void>(
+      context: context,
+      barrierDismissible: false,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: const Text('アラートダイアログ'),
+          content: SingleChildScrollView(
+            child: ListBody(
+              children: const <Widget>[
+                Text('ダイアログメッセージ１行目'),
+                Text('ダイアログメッセージ２行目'),
+              ],
+            ),
+          ),
+          actions: <Widget>[
+            TextButton(
+              child: const Text('OK'),
+              onPressed: () => Navigator.of(context).pop(),
+            ),
+          ],
+        );
+      },
     );
   }
 }
