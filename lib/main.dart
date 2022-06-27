@@ -36,23 +36,27 @@ class HomePage extends StatelessWidget {
             onPressed: () => _showAlertDialog(context),
             icon: const Icon(Icons.crisis_alert_outlined)),
       ),
-      body: SingleChildScrollView(
-          child: SizedBox(
-        width: double.infinity,
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: const [
-            SizedBox(
-              width: 250,
-              height: 200,
+      body: ListView.builder(
+        itemCount: 12, // この行を追加
+        itemBuilder: (BuildContext context, int index) {
+          return Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 20),
+            child: SizedBox(
+              height: 100,
               child: Card(
-                elevation: 2,
-                color: Color.fromARGB(255, 159, 175, 183),
+                child: ListTile(
+                  leading: CircleAvatar(
+                    maxRadius: 50,
+                    backgroundColor: Colors.amber,
+                  ),
+                  title: Text('タイトルです'),
+                  subtitle: Text('サブタイトルです'),
+                ),
               ),
-            )
-          ],
-        ),
-      )),
+            ),
+          );
+        },
+      ),
     );
   }
 
